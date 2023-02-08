@@ -1,8 +1,37 @@
-const puppeteer = require("puppeteer");
+// const puppeteer = require("puppeteer");
+const puppeteer = require('puppeteer-core')
+const chrome = require('chrome-aws-lambda')
+
+const setOptions = async () => {
+    let options = {};
+    if (process.env.NODE_ENV === "production") {
+        options = {
+            args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+            defaultViewport: chrome.defaultViewport,
+            executablePath: await chrome.executablePath,
+            headless: true,
+            ignoreHTTPSErrors: true,
+        };
+    } else {
+        const exePath =
+            process.platform === "win32"
+                ? "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+                : process.platform === "linux"
+                    ? "/usr/bin/google-chrome"
+                    : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+        options = {
+            args: [],
+            executablePath: exePath,
+            headless: true,
+        }
+    }
+    return options
+}
 
 const getFACritics = async (title) => {
     try {
-        const browser = await puppeteer.launch({ headless: true })
+        const options = await setOptions();
+        const browser = await puppeteer.launch(options)
         const page = await browser.newPage();
         await page.goto(`https://www.filmaffinity.com/en/advsearch2.php?q=${title}`);
         await page.waitForSelector('.css-v43ltw');
@@ -31,7 +60,8 @@ const getFACritics = async (title) => {
 
 // A partir de la linea comentada no consigo seleccionar la peli
 const getRTReview = async (title) => {
-    const browser = await puppeteer.launch({ headless: true })
+    const options = await setOptions();
+    const browser = await puppeteer.launch(options)
     const page = await browser.newPage();
     await page.goto(`https://www.rottentomatoes.com/search?search=${title}`);
     await page.waitForSelector('#onetrust-accept-btn-handler');
@@ -50,6 +80,7 @@ const getRTReview = async (title) => {
 // PRUEBAS
 // getFACritics("Indiana Jones: Raiders of the Lost Ark").then(data => console.log(data))
 // getRTReview("Star Wars Episode I").then(data => console.log(data))
+
 // getIMDB("Indiana Jones: Raiders of the Lost Ark").then(data => console.log(data))
 
 

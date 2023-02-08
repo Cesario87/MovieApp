@@ -14,9 +14,6 @@
   },
   "author": "César Alba, Rubén Zafra y Fran V. Hernández",
   "license": "ISC",
-  "engines": {
-    "node": "^14"
-  },
   "bugs": {
     "url": "https://github.com/Francsy/MovieApp/issues"
   },

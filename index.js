@@ -19,7 +19,7 @@ const adminRouter = require('./routes/adminRoutes')
 const googleRouter = require('./routes/googleRoutes')
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 //Inicializamos passport y la session de passport
 app.use(session({

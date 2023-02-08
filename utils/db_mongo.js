@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 require('dotenv').config();
 
-const url = process.env.ATLAS_ADMIN_CONNECTION //||"mongodb://localhost:27017/test";
+const url = process.env.MONGODB_URI //||"mongodb://localhost:27017/test";
 
 
 mongoose.set('strictQuery', false);

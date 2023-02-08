@@ -1,6 +1,6 @@
 // const puppeteer = require("puppeteer");
-const puppeteer = require('puppeteer-core')
 const chrome = require('chrome-aws-lambda')
+const puppeteer = require('puppeteer-core')
 
 const setOptions = async () => {
     let options = {};

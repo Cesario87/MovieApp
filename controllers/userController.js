@@ -85,11 +85,11 @@ const renderMovieDetails = async (req, res, next) => {
             rating: apiMovie.imdbRating,
             id: apiMovie.imdbID
         }
-        const [critics, specialReview] = await Promise.all([
-            scraper.getFACritics(movie.title),
-            scraper.getRTReview(movie.title)
-        ]);
-        res.status(200).render('userMovie', { movie, critics, specialReview });
+        // const [critics, specialReview] = await Promise.all([
+        //     scraper.getFACritics(movie.title),
+        //     scraper.getRTReview(movie.title)
+        // ]);
+        res.status(200).render('userMovie', { movie /*,  critics, specialReview */ });
     } catch (err) {
         next(err)
     }

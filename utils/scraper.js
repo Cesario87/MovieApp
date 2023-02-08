@@ -53,7 +53,8 @@ const getFACritics = async (title) => {
         await browser.close()
         return opinions
     } catch (err) {
-        console.log(err)
+        console.log(err);
+        throw err;
     }
 }
 
